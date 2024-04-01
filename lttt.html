@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Quản lý sinh viên</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        
+        table {
+            border: 1px solid black;
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th,
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        tr:hover {
+            background-color: #ddd;
+            transition: background-color 0.3s ease;
+        }
+        
+        #themMoi {
+            background-color: #ff0000;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        #themMoi:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Quản lý sinh viên</h2>
+    <button onclick="themMoi()">Thêm mới</button>
+    <div id="formThemMoi" style="display: none;">
+        <input type="text" id="mssv" placeholder="MSSV">
+        <input type="text" id="ten" placeholder="Tên">
+        <input type="text" id="lop" placeholder="Lớp">
+        <input type="text" id="sdt" placeholder="SĐT">
+        <input type="text" id="ngaySinh" placeholder="Ngày tháng năm sinh">
+        <input type="text" id="noiSinh" placeholder="Nơi sinh">
+        <input type="text" id="thanhTich" placeholder="Thành tích"> <button onclick="themSinhVien()">Thêm</button>
+    </div>
+    <div id="formSua" style="display: none;">
+        <input type="text" id="mssvSua" placeholder="MSSV">
+        <input type="text" id="tenSua" placeholder="Tên">
+        <input type="text" id="lopSua" placeholder="Lớp">
+        <input type="text" id="sdtSua" placeholder="SĐT">
+        <input type="text" id="ngaySinhSua" placeholder="Ngày tháng năm sinh">
+        <input type="text" id="noiSinhSua" placeholder="Nơi sinh">
+        <input type="text" id="thanhTichSua" placeholder="Thành tích">
+        <button onclick="capNhatSinhVien()">Sửa</button>
+    </div>
+    <table id="sinhVienTable">
+        <tr>
+            <th>TT</th>
+            <th>MSSV</th>
+            <th>Tên</th>
+            <th>Lớp</th>
+            <th>SĐT</th>
+            <th>Ngày tháng năm sinh</th>
+            <th>Nơi sinh</th>
+            <th>Thành tích </th>
+            <th>Thao tác</th>
+        </tr>
+        <!-- Dữ liệu sinh viên sẽ được thêm vào đây -->
+    </table>
+
+    <script>
+        var sinhVienArray = [];
+
+        function SinhVien(stt, mssv, ten, lop, sdt, ngaySinh, noiSinh, thanhTich) {
+            this.stt = stt;
+            this.mssv = mssv;
+            this.ten = ten;
+            this.lop = lop;
+            this.sdt = sdt;
+            this.ngaySinh = ngaySinh;
+            this.noiSinh = noiSinh;
+            this.thanhTich = thanhTich;
+        }
+
+        function themMoi() {
+            document.getElementById('formThemMoi').style.display = 'block';
+        }
+
+        function themSinhVien() {
+            var stt = sinhVienArray.length + 1;
+            var mssv = document.getElementById('mssv').value;
+            var ten = document.getElementById('ten').value;
+            var lop = document.getElementById('lop').value;
+            var sdt = document.getElementById('sdt').value;
+            var ngaySinh = document.getElementById('ngaySinh').value;
+            var noiSinh = document.getElementById('noiSinh').value;
+            var thanhTich = document.getElementById('thanhTich').value;
+
+            var sinhVien = new SinhVien(stt, mssv, ten, lop, sdt, ngaySinh, noiSinh, thanhTich);
+            sinhVienArray.push(sinhVien);
+
+            capNhatBang();
+        }
+
+        function suaSinhVien(stt) {
+            for (var i = 0; i < sinhVienArray.length; i++) {
+                if (sinhVienArray[i].stt === stt) {document.getElementById('mssvSua').value = sinhVienArray[i].mssv;
+                document.getElementById('tenSua').value = sinhVienArray[i].ten;
+                document.getElementById('lopSua').value = sinhVienArray[i].lop;
+                document.getElementById('sdtSua').value = sinhVienArray[i].sdt;
+                document.getElementById('ngaySinhSua').value = sinhVienArray[i].ngaySinh;
+                document.getElementById('noiSinhSua').value = sinhVienArray[i].noiSinh;
+                document.getElementById('thanhTichSua').value = sinhVienArray[i].thanhTich;
+
+                document.getElementById('formSua').style.display = 'block';
+                break;
+            }
+        }
+    }
+
+    function capNhatSinhVien() { var stt = document.getElementById('mssvSua').value;
+    var mssv = document.getElementById('mssvSua').value;
+    var ten = document.getElementById('tenSua').value;
+    var lop = document.getElementById('lopSua').value;
+    var sdt = document.getElementById('sdtSua').value;
+    var ngaySinh = document.getElementById('ngaySinhSua').value;
+    var noiSinh = document.getElementById('noiSinhSua').value;
+    var thanhTich = document.getElementById('thanhTichSua').value;
+
+    for (var i = 0; i < sinhVienArray.length; i++) {
+        if (sinhVienArray[i].stt === stt) {
+            sinhVienArray[i].mssv = mssv;
+            sinhVienArray[i].ten = ten;
+            sinhVienArray[i].lop = lop;
+            sinhVienArray[i].sdt = sdt;
+            sinhVienArray[i].ngaySinh = ngaySinh;
+            sinhVienArray[i].noiSinh = noiSinh;
+            sinhVienArray[i].thanhTich = thanhTich;
+
+            capNhatBang();
+            break;}
+        }
+    }
+
+    function xoaSinhVien(stt) {
+        for (var i = 0; i < sinhVienArray.length; i++) {
+            if (sinhVienArray[i].stt === stt) {
+                sinhVienArray.splice(i, 1);
+
+                capNhatBang();
+                break;
+            }
+        }
+    }
+
+    function capNhatBang() {
+        var table = document.getElementById('sinhVienTable');
+        table.innerHTML = `
+            <tr>
+                <th>TT</th>
+                <th>MSSV</th>
+                <th>Tên</th>
+                <th>Lớp</th>
+                <th>SĐT</th>
+                <th>Ngày tháng năm sinh</th>
+                <th>Nơi sinh</th>
+                <th>Thành tích 2</th>
+                <th>Thao tác</th>
+            </tr>
+        `; for (var i = 0; i < sinhVienArray.length; i++) {
+            var sinhVien = sinhVienArray[i];
+            table.innerHTML += `
+                <tr>
+                    <td>${sinhVien.stt}</td>
+                    <td>${sinhVien.mssv}</td>
+                    <td>${sinhVien.ten}</td>
+                    <td>${sinhVien.lop}</td>
+                    <td>${sinhVien.sdt}</td>
+                    <td>${sinhVien.ngaySinh}</td>
+                    <td>${sinhVien.noiSinh}</td>
+                    <td>${sinhVien.thanhTich}</td>
+                    <td>
+                        <button onclick="suaSinhVien(${sinhVien.stt})">Sửa</button>
+                        <button onclick="xoaSinhVien(${sinhVien.stt})">Xóa</button>
+                    </td>
+                </tr>
+            `;
+        }
+    }
+</script>
+</body>
+
+</html>
