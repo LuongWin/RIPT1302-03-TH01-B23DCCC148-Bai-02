@@ -1,0 +1,36 @@
+.App {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.todo-list,
+.image-search,
+.random-color {
+  width: 30%;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  margin: 5px 0;
+}
+
+button {
+  margin-left: 10px;
+}
+
+.random-color div {
+  margin-top: 10px;
+}
